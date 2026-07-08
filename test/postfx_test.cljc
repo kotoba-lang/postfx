@@ -6,7 +6,7 @@
 
 (deftest namespace-loads
   (testing "the restored CLJC namespace loads"
-    (is (some? (the-ns 'postfx)))))
+    (is (some? (find-ns 'postfx)))))
 
 ;; Rust: test_nintendo_preset (lib.rs:312-317)
 (deftest test-nintendo-preset
