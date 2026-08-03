@@ -3,20 +3,20 @@
             [clojure.java.shell :as shell]
             [clojure.test :refer [deftest is]]
             [kotoba.compiler.core :as compiler]
-            [kotoba.compiler.ir :as ir]))
+            [kotoba.kir :as ir]))
 
 (def source (slurp "src/postfx.kotoba"))
 (defn map-value [document key]
-  (second (some #(when (= key (first %)) %) (second document))))
+  (second (some #(when (= ["keyword" key] (first %)) %) (second document))))
 (defn effect-count [pipeline]
   (count (second (map-value pipeline :effects))))
 
 (deftest reference-preserves-constructors-pipelines-and-layout-data
   (let [kir (:kir (compiler/compile-source source :js-kotoba-v1))
         execute #(ir/execute kir %1 %2)
-        config ["map" [[:intensity ["f64" 0.3]]
-                         [:radius ["f64" 4.0]]
-                         [:threshold ["f64" 0.8]]]]
+        config ["map" [[["keyword" :intensity] ["f64" 0.3]]
+                        [["keyword" :radius] ["f64" 4.0]]
+                        [["keyword" :threshold] ["f64" 0.8]]]]
         effect (execute 'bloom [config])
         pipeline (execute 'add [(execute 'new-pipeline []) effect])]
     (is (= ["keyword" :bloom] (map-value effect :type)))
@@ -46,7 +46,7 @@
                (str "import(process.argv[1]).then(async host=>{"
                     "const j=await import('data:text/javascript;base64," js64 "');"
                     "const w=await host.instantiateKotoba(Buffer.from(process.argv[2],'base64'));"
-                    "const get=(d,k)=>d[1].find(e=>e[0]===k)[1],count=p=>get(p,':effects')[1].length;"
+                    "const get=(d,k)=>d[1].find(e=>e[0][0]==='keyword'&&e[0][1]===k)[1],count=p=>get(p,':effects')[1].length;"
                     "for(const x of [j.instantiateKotoba({}),w.instance.exports]){"
                     "if(count(x.nintendo())!==3||count(x.retro())!==2||count(x['final-fantasy']())!==10||count(x['baminiku-character']())!==6)throw Error('preset');"
                     "if(get(x.nintendo(),':enabled')[1]!==true)throw Error('enabled')}"

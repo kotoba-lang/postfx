@@ -7,8 +7,7 @@
             god-rays-params]))
 
 (defn field [config :document key :keyword] :document
-  (option-value-of [:option :document]
-    (document-get config key) (document-null)))
+  (option-or (document-get config key) (document-null)))
 
 (defn effect-types [] [:set :keyword]
   (typed-set [:set :keyword]
