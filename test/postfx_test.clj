@@ -55,5 +55,10 @@
     (is (zero? (:exit probe)) (:err probe))))
 
 (deftest production-source-authority
-  (is (= ["src/postfx.kotoba"]
+  ;; NARROWED, not deleted (ADR 0001 as amended, ADR-2608133600 in
+  ;; com-junkawasaki/root). `src/postfx.kotoba` is still the sole SEMANTIC
+  ;; authority; `src/postfx.cljc` is the load path consumers require, held to it by
+  ;; `postfx-parity-test`. A third file, or a second .cljc, would be a fork of the
+  ;; authority with nothing asserting agreement — so it is still refused here.
+  (is (= ["src/postfx.cljc" "src/postfx.kotoba"]
          (->> (file-seq (io/file "src")) (filter #(.isFile %)) (map str) sort vec))))
