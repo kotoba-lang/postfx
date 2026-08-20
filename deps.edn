@@ -1,7 +1,7 @@
 {:paths ["src"]
  :deps {org.clojure/clojure {:mvn/version "1.12.0"}}
  :aliases {:test {:extra-paths ["test"]
-                  ;; kotoba-lang/compiler is a TEST-ONLY dependency, for the tests
+                  ;; kotoba-lang/amu is a TEST-ONLY dependency, for the tests
                   ;; that compile src/postfx.kotoba and require it to agree with
                   ;; src/postfx.cljc (ADR 0001 as amended, and ADR-2608133600 in
                   ;; com-junkawasaki/root). Consumers require only the .cljc and must
@@ -9,8 +9,8 @@
                   ;; kotoba-lang/css, /dsl-core and /async set the same boundary.
                   :extra-deps {io.github.cognitect-labs/test-runner
                                {:git/tag "v0.5.1" :git/sha "dfb30dd"}
-                               io.github.kotoba-lang/compiler
-                               {:git/url "https://github.com/kotoba-lang/compiler.git"
+                               io.github.kotoba-lang/amu
+                               {:git/url "https://github.com/kotoba-lang/amu.git"
                                 :git/sha "1e6dbb17d314cf45d3dd6796a6a9d5cb84b437b2"}}
                   :main-opts ["-m" "cognitect.test-runner"]}
            ;; clj-kondo as a Clojars lib (no Homebrew/system install needed).
