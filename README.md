@@ -29,5 +29,5 @@ compatibility requirement. JVM Clojure is only a compiler/test host.
 ## Develop
 
 ```bash
-clojure -M:test
+kbb -M:test
 ```
