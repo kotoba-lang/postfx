@@ -1,6 +1,6 @@
 (ns postfx-parity-test
   "Parity gate between `src/postfx.kotoba` (the semantic authority) and
-  `src/postfx.cljc` (the load path `kotoba-lang/kami-postfx-scene` requires).
+  `src/postfx.cljk` (the load path `kotoba-lang/kami-postfx-scene` requires).
 
   Shape follows `kotoba-lang/css` (`css.kotoba-parity-test`) and
   `kotoba-lang/dsl-core` (`kotoba.dsl.problem-parity-test`, ADR-2608130900): the

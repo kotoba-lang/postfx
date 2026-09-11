@@ -3,7 +3,7 @@
  :aliases {:test {:extra-paths ["test"]
                   ;; kotoba-lang/amu is a TEST-ONLY dependency, for the tests
                   ;; that compile src/postfx.kotoba and require it to agree with
-                  ;; src/postfx.cljc (ADR 0001 as amended, and ADR-2608133600 in
+                  ;; src/postfx.cljk (ADR 0001 as amended, and ADR-2608133600 in
                   ;; com-junkawasaki/root). Consumers require only the .cljc and must
                   ;; not be made to drag the compiler in behind it —
                   ;; kotoba-lang/css, /dsl-core and /async set the same boundary.
