@@ -33,7 +33,7 @@
   would have broken it.
 
   `src/postfx.kotoba` remains the SEMANTIC AUTHORITY and is not reverted. This
-  `.cljc` is the LOAD PATH, and `test/postfx_parity_test.clj` asserts the two agree
+  `.cljc` is the LOAD PATH, and `test/postfx_parity_test.cljk` asserts the two agree
   by compiling the `.kotoba` and running it through the KIR interpreter in the same
   JVM (the shape `kotoba-lang/css`, `kotoba-lang/dsl-core` and `kotoba-lang/async`
   use). Change one, change the other; the gate will say so.

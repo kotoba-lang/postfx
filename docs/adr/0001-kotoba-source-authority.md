@@ -23,7 +23,7 @@ decision above is withdrawn.
 
 What is corrected is a conflation. "Sole production language source" was read as
 "sole file under `src/`", and on 2026-07-20 `15c7fda2` acted on that reading by
-deleting `src/postfx.cljc`. That did not move the `postfx` namespace to Kotoba for
+deleting `src/postfx.cljk`. That did not move the `postfx` namespace to Kotoba for
 its consumers — it removed the only way any Clojure runtime (JVM, nbb,
 ClojureScript) can load it at all. `kotoba-lang/kami-postfx-scene` requires
 `[postfx :as postfx]` from `src/postfx_scene.cljc:61`, on its production path. It
@@ -35,13 +35,13 @@ So:
 * `src/postfx.kotoba` — the semantic authority. Reference execution, restricted
   JavaScript and typed Wasm must agree on observable values, typed ABI, effects,
   bounds and rejection behaviour, exactly as stated above.
-* `src/postfx.cljc` — the LOAD PATH. Held to the authority by
-  `test/postfx_parity_test.clj`, which compiles the `.kotoba` and runs it through
+* `src/postfx.cljk` — the LOAD PATH. Held to the authority by
+  `test/postfx_parity_test.cljk`, which compiles the `.kotoba` and runs it through
   the KIR interpreter in the same JVM and compares typed documents. This is the
   shape `kotoba-lang/css`, `kotoba-lang/dsl-core` and `kotoba-lang/async` use
   (ADR-2608130900 in com-junkawasaki/root).
 
-`production-source-authority` in `test/postfx_test.clj` is NARROWED, not deleted:
+`production-source-authority` in `test/postfx_test.cljk` is NARROWED, not deleted:
 `src/` is exactly these two files. A third file, or a second `.cljc`, is a fork of
 the authority with nothing asserting agreement, and is still refused.
 
@@ -58,6 +58,6 @@ asserted by the parity test:
   Narrowing the `.cljc` to 32 would be a promise this library never made; the
   largest shipped preset is `final-fantasy` at 10.
 
-REMOVAL CONDITION for `src/postfx.cljc`: when consumers have a load path that does
+REMOVAL CONDITION for `src/postfx.cljk`: when consumers have a load path that does
 not require a `.cljc` — for the native route, ADR-2607279200 W4. Until then,
 deleting it is not a step of the migration, it is an outage.
