@@ -25,7 +25,7 @@
 
   3. The guest's `main` is a wasm entry point, not library API, and is not mirrored
      (same decision as `dsl-core`)."
-  (:require [kotoba.test :refer [deftest is testing]]
+  (:require [kotoba.lang.error :as kerror] [kotoba.test :refer [deftest is testing]]
             [kotoba.compiler.core :as compiler]
             [kotoba.kir :as ir]
             [postfx :as postfx]))
@@ -198,7 +198,7 @@
         (is (= (->doc host) guest))))
     (testing "the 33rd: the guest refuses, this namespace accepts"
       (let [[host guest] (fill 32)]
-        (is (thrown? clojure.lang.ExceptionInfo (call 'add guest doc)))
+        (is (thrown? kerror/ExceptionInfo (call 'add guest doc)))
         (is (= 33 (count (:effects (postfx/add host effect)))))))
     (testing "and the largest shipped preset is well inside the bound"
       (is (= 10 (count (:effects (postfx/final-fantasy))))))))
